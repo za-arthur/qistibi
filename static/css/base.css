@@ -1,0 +1,61 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+header {
+  line-height: 1;
+  border-bottom: solid #e5e5e5;
+
+  font-size: 1.25rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Content settings */
+
+.content a {
+  color: #336699!important;
+  text-decoration: underline;
+}
+
+.content a:hover {
+  color: #fff!important;
+  background-color: #336699!important;
+}
+
+.content strong {
+  font-weight: 700!important;
+}
+
+h6 {
+  margin: 1rem 0!important;
+}
+
+h4, h6 {
+  font-weight: 700!important;
+}
+
+/* Navigation bar */
+
+.nav a {
+  padding: .5rem!important;
+}
+
+.nav a.text-body:hover, .nav a.text-muted:hover {
+  color: #fff!important;
+  background-color: #6c757d!important;
+}
+
+/* Social icons */
+
+.title-logo {
+  height:24px;
+  width:24px;
+  margin: 0px 12px 0px 0px;
+  opacity: 0.4;
+  text-decoration:none;
+}
+
+.title-logo:hover{
+  opacity: 0.8;
+  text-decoration:none;
+}

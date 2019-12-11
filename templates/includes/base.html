@@ -1,0 +1,47 @@
+{{ define "base" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ template "title" . }}</title>
+
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:900" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link type="text/css" rel="stylesheet" href="/static/css/base.css">
+
+    <!--favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/static/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/static/images/favicon-16x16.png">
+
+    {{ template "head" }}
+</head>
+<body>
+    <div class="container">
+        <header class="py-3">
+            <div class="row justify-content-between align-items-center">
+                <div class="col">Arthur Zakirov - Software engineer</div>
+                <div class="col-md-auto justify-content-end">
+                    <a target="_blank" href="https://github.com/za-arthur">
+                        <img class="title-logo" src="/static/images/github.svg"></a>
+                    <a target="_blank" href="https://www.linkedin.com/in/za-arthur/">
+                        <img class="title-logo" src="/static/images/linkedin-logo.svg"></a>
+                </div>
+            </div>
+        </header>
+        <div class="nav d-flex bg-light py-1 mb-2 justify-content-start">
+            {{ template "navbar" }}
+        </div>
+        <div class="content mt-4">
+            {{ template "content" }}
+        </div>
+    </div>
+</body>
+</html>
+{{ end }}
+
+{{ define "head" }}{{ end }}

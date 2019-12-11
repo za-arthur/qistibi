@@ -1,0 +1,8 @@
+/* Checkers */
+.checkersboard .col {
+  width: 10vw;
+  max-width: 3rem;
+  height: 10vw;
+  max-height: 3rem;
+  border: 1px solid #6c757d!important;
+}
