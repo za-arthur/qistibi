@@ -6,6 +6,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"path"
 	"path/filepath"
 )
 
@@ -17,12 +18,17 @@ func init() {
 		templates = make(map[string]*template.Template)
 	}
 
-	layouts, err := filepath.Glob("templates/*.html")
+	templates_path := os.Getenv("TEMPLATES_PATH")
+	if templates_path == "" {
+		templates_path = "templates"
+	}
+
+	layouts, err := filepath.Glob(path.Join(templates_path, "*.html"))
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	includes, err := filepath.Glob("templates/includes/*.html")
+	includes, err := filepath.Glob(path.Join(templates_path, "includes", "*.html"))
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -90,7 +96,12 @@ func main() {
 
 	mux := http.NewServeMux()
 
-	fs := http.FileServer(http.Dir("static"))
+	static_path := os.Getenv("STATIC_PATH")
+	if static_path == "" {
+		static_path = "static"
+	}
+
+	fs := http.FileServer(http.Dir(static_path))
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	mux.HandleFunc("/", indexHandler)
