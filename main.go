@@ -58,31 +58,23 @@ func renderTemplate(w http.ResponseWriter, name string, data map[string]interfac
 
 // Handler for 404
 func notFoundHandler(w http.ResponseWriter, r *http.Request) {
-    w.WriteHeader(http.StatusNotFound)
-    err := renderTemplate(w, "404.html", nil)
+	w.WriteHeader(http.StatusNotFound)
+	err := renderTemplate(w, "404.html", nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
 }
 
-// Handler for "/"
-func indexHandler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/" {
+// Handler for a pattern
+func simpleHandler(pattern string, template string,
+	w http.ResponseWriter, r *http.Request) {
+	if r.URL.Path != pattern {
 		notFoundHandler(w, r)
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	err := renderTemplate(w, "index.html", nil)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-}
-
-// Handler for "/presentations/"
-func presentationsHandler(w http.ResponseWriter, r *http.Request) {
-	w.WriteHeader(http.StatusOK)
-	err := renderTemplate(w, "presentations.html", nil)
+	err := renderTemplate(w, template, nil)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	}
@@ -94,18 +86,36 @@ func main() {
 		port = "3000"
 	}
 
-	mux := http.NewServeMux()
-
 	static_path := os.Getenv("STATIC_PATH")
 	if static_path == "" {
 		static_path = "static"
 	}
 
+	mux := http.NewServeMux()
+
 	fs := http.FileServer(http.Dir(static_path))
 	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
-	mux.HandleFunc("/", indexHandler)
-	mux.HandleFunc("/presentations/", presentationsHandler)
+	// Initialize endpoints handlers
+	endpoints := []struct {
+		pattern string
+		template string
+	} {
+		{"/", "index.html"},
+		{"/presentations/", "presentations.html"},
+	}
+
+	for _, endpoint := range endpoints {
+		/*
+		 * We need to declare new variables here since the new clusure will
+		 * reuse the last endpoint entry.
+		 */
+		pattern := endpoint.pattern
+		template := endpoint.template
+		mux.HandleFunc(pattern, func(w http.ResponseWriter, r *http.Request) {
+			simpleHandler(pattern, template, w, r)
+		})
+	}
 
 	log.Println("Listening...")
 	http.ListenAndServe(":" + port, mux)
