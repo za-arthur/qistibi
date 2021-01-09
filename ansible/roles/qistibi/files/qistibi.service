@@ -1,0 +1,12 @@
+[Unit]
+Description=qistibi
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5s
+ExecStart=/home/artur/qistibi/qistibi
+Environment="STATIC_PATH=/home/artur/qistibi/static"
+Environment="TEMPLATES_PATH=/home/artur/qistibi/templates"
+[Install]
+WantedBy=multi-user.target

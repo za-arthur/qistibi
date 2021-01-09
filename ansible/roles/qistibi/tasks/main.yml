@@ -1,0 +1,36 @@
+---
+# tasks file for qistibi
+- name: Copy systemd service file to server
+  copy:
+    src: qistibi.service
+    dest: /etc/systemd/system
+    owner: root
+    group: root
+
+- name: Copy binary to server
+  copy:
+    src: qistibi
+    dest: /home/artur/qistibi/
+    mode: 0755
+    owner: artur
+    group: artur
+
+- name: Copy static files
+  copy:
+    src: static
+    dest: /home/artur/qistibi/
+    owner: artur
+    group: artur
+
+- name: Copy template files
+  copy:
+    src: templates
+    dest: /home/artur/qistibi/
+    owner: artur
+    group: artur
+
+- name: Start qistibi
+  systemd:
+    name: qistibi
+    state: started
+    enabled: yes
