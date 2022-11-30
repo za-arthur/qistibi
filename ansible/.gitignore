@@ -1,3 +1,5 @@
 roles/qistibi/files/qistibi
 roles/qistibi/files/static/
 roles/qistibi/files/templates/
+venv/
+
