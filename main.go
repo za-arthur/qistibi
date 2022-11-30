@@ -98,10 +98,11 @@ func main() {
 
 	// Initialize endpoints handlers
 	endpoints := []struct {
-		pattern string
+		pattern  string
 		template string
-	} {
+	}{
 		{"/", "index.html"},
+		{"/projects/", "projects.html"},
 		{"/presentations/", "presentations.html"},
 	}
 
@@ -118,5 +119,5 @@ func main() {
 	}
 
 	log.Println("Listening...")
-	http.ListenAndServe(":" + port, mux)
+	http.ListenAndServe(":"+port, mux)
 }
